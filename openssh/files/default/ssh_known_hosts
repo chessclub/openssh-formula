@@ -71,8 +71,13 @@
 {%- endfor -%}
 
 {#- Salt Mine #}
-{%- set host_keys = salt['mine.get'](target, keys_function, tgt_type=tgt_type) -%}
-{%- set host_names = salt['mine.get'](target, hostname_function, tgt_type=tgt_type) -%}
+{%- if grains.saltversion >= '2017.7.2' -%}
+{%-   set host_keys = salt['mine.get'](target, keys_function, tgt_type=tgt_type) -%}
+{%-   set host_names = salt['mine.get'](target, hostname_function, tgt_type=tgt_type) -%}
+{%- else -%}
+{%-   set host_keys = salt['mine.get'](target, keys_function, expr_form=tgt_type) -%}
+{%-   set host_names = salt['mine.get'](target, hostname_function, expr_form=tgt_type) -%}
+{%- endif %}
 
 {#- Salt SSH (if any) #}
 {%- for minion_id, minion_host_keys in salt['pillar.get'](
