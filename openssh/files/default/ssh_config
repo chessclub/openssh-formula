@@ -25,14 +25,14 @@
     {{ keyword }} no
   {%- elif value is string or value is number %}
     {{ keyword }} {{ value }}
-  {%- else -%}
+  {%- else %}
     {%- if keyword in string_or_list_options %}
     {{ keyword }} {{ value|join(',') }}
     {%- else %}
-    {%- for single_value in value -%}
+    {%- for single_value in value %}
     {{ keyword }} {{ single_value }}
-    {%- endfor -%}
-    {%- endif -%}
+    {%- endfor %}
+    {%- endif %}
 {%- endif -%}
 {%- endmacro -%}
 
