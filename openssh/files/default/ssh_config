@@ -126,7 +126,7 @@ Host {{ host }}
 {# Handle matches last as they need to go at the bottom #}
 {% if 'matches' in ssh_config -%}
   {%- for match in ssh_config['matches'].values() %}
-Match {{ match['type'].keys()[0] }} {{ match['type'].values()[0] }}
+Match {{ list(match['type'].keys())[0] }} {{ list(match['type'].values())[0] }}
     {%- for keyword in match['options'].keys() %}
     {{ render_option(keyword, '', config_dict=match['options']) }}
     {%- endfor %}
